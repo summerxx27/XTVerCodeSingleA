@@ -1,4 +1,4 @@
-# XTVerCodeSingeA
+# XTVerCodeSingleA
 一个可以验证码的输入框, 单个单个字符显示!
 
 Usage
