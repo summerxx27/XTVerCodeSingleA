@@ -14,5 +14,5 @@ Usage
 ```
 
 Example
+<img src="https://i.loli.net/2018/02/07/5a7aab4e188a6.gif" width="375" height="667">
 
-[](https://i.loli.net/2018/02/07/5a7aab4e188a6.gif)
