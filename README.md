@@ -14,5 +14,5 @@ Usage
 ```
 
 Example
-<img src="https://i.loli.net/2018/02/07/5a7aab4e188a6.gif" width="375" height="667">
+<img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fo7xrz2tgkg308w0ftb29.gif" width="375" height="667">
 
