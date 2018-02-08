@@ -12,7 +12,7 @@
 #define K_W 59.5
 #define K_H 82
 #define PADDING 2
-
+#define XTUIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define CHANGETYPE
 @interface XTVerCodeInput ()<UITextViewDelegate>
 @property (nonatomic, strong) UITextView *textView;
@@ -31,8 +31,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         /// 配置颜色
-        _normalColor = [UIColor colorWithRed:225.0 / 255.0 green:225.0 / 255.0 blue:225.0 / 255.0 alpha:1];
-        _hlColor = [UIColor colorWithRed:100.0 / 255.0 green:100.0 / 255.0 blue:100.0 / 255.0 alpha:1];
+        _normalColor = XTUIColorFromRGB(0xe7e7e7);
+        _hlColor = XTUIColorFromRGB(0x777777);
         _inputT = 4;
         self.setFrame = frame;
     }
@@ -77,10 +77,10 @@
         label.font = [UIFont systemFontOfSize:38];
         [subView addSubview:label];
         /// 4 光标
-        UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(K_W / 2, 15, 3, K_H - 30)];
+        UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(K_W / 2, 15, 2, K_H - 30)];
         CAShapeLayer *line = [CAShapeLayer layer];
         line.path = path.CGPath;
-        line.fillColor =  [UIColor lightGrayColor].CGColor;
+        line.fillColor =  XTUIColorFromRGB(0xd6d6d6).CGColor;
         [subView.layer addSublayer:line];
         if (i == 0) {
             [line addAnimation:[self opacityAnimation] forKey:@"kOpacityAnimation"];
@@ -99,12 +99,16 @@
 /// textView Delegate
 - (void)textViewDidChange:(UITextView *)textView {
     NSString *verStr = textView.text;
+    
+    if (verStr.length > _inputT) {
+        textView.text = [textView.text substringToIndex:_inputT];
+    }
     /// 大于等于4时, 结束编辑
     if (verStr.length >= _inputT) {
         [self endEdit];
-        if (self.verCodeBlock) {
-            self.verCodeBlock(verStr);
-        }
+    }
+    if (self.verCodeBlock) {
+        self.verCodeBlock(textView.text);
     }
     for (int i = 0; i < _labels.count; i ++) {
         UILabel *bgLabel = _labels[i];
@@ -183,3 +187,5 @@
     return _textView;
 }
 @end
+
+
